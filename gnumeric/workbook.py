@@ -15,10 +15,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-
+import sys
 import gzip
 from datetime import datetime
-from typing import List, Optional, Self, Union
+if sys.version_info.major == 3:
+    if sys.version_info.minor == 10:
+        from typing import List, Optional, Union
+        from typing_extensions import Self
+    elif sys.version_info.minor == 11:
+        from typing import List, Optional, Self, Union
+    
 from pathlib import Path
 
 import dateutil.parser

@@ -56,7 +56,41 @@ def test_assigning_wrong_value_type_to_cell(out_dir):
 def test_saving_workbook_with_no_sheets(out_dir):
     pass
 
+def test_read_numbers_only(fpath):
+    """
+    read only numbers from sheet
+    """
+    import string
 
+    wb = workbook.Workbook.load_workbook(fpath)
+
+    # Get a sheet by name (skip dummy sheets)
+    ws = wb.get_sheet_by_name('info')
+    
+    truth = []
+    for i in range(1,11):
+        a =i
+        b = 3*i+1
+        c = b
+        if i>1:
+            c = b+truth[-1][-1]
+        truth.append([a,b,c])
+        
+    # construct index like 'B12'
+    c0 = string.ascii_uppercase.index('A') # first column
+    c1 = string.ascii_uppercase.index('C') # last column
+    clist = list(string.ascii_uppercase[c0:c1+1])
+    r0 = 2 # first row
+    r1 = 11 # last row
+    # construct index like 'B12'
+    cnames = [ ws['{}{}'.format(c,1)].get_value() for c in clist ]# only data, no expressions
+    data = []
+    for r in range(r0,r1+1):
+        dat = [ int(ws['{}{}'.format(c,r)].get_value(compute_expression=True)) for c in clist ]# only data, no expressions
+        data.append(dat)
+
+    assert (data == truth), "Imported data does not match with expected values"
+    
 if __name__ == '__main__':
     test_dir = 'test_output'
     if not os.path.exists(test_dir):
@@ -64,3 +98,4 @@ if __name__ == '__main__':
 
     write_workbook_with_one_worksheet(test_dir)
     test_order_of_cells_in_worksheet_does_not_matter(test_dir)
+    test_read_numbers_only(os.path.join('samples', 'test_input.gnumeric'))

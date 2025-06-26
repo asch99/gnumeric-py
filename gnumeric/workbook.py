@@ -22,7 +22,7 @@ if sys.version_info.major == 3:
     if sys.version_info.minor == 10:
         from typing import List, Optional, Union
         from typing_extensions import Self
-    elif sys.version_info.minor == 11:
+    elif sys.version_info.minor in [11,12]:
         from typing import List, Optional, Self, Union
     
 from pathlib import Path

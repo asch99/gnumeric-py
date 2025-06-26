@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "gnumeric"
-version = "0.1.0"
+version = "0.1.1"
 description = "A python library for reading and writing Gnumeric files"
 authors = ["Michael Lipschultz <michael.lipschultz@gmail.com>"]
 license = "GPL-3.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10 || ^3.11"
-lxml = "^5.3.0"
+python = "^3.10 || ^3.11 || ^3.12"
+lxml = "^5.3.0 || ^6.0"
 python-dateutil = "^2.9.0.post0"
 lark-parser = "^0.12.0"
 
